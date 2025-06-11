@@ -53,9 +53,6 @@ const ContactForm = () => {
 		const userID = import.meta.env.VITE_APP_PUBLIC_KEY;
 		setIsSubmitting(true);
 
-		// Log environment variables for debugging
-		console.log({ serviceID, templateID, userID });
-
 		// Basic validation
 		if (!formData.name || !formData.email || !formData.message) {
 			toast.error("Please fill in all required fields");
@@ -73,7 +70,6 @@ const ContactForm = () => {
 
 		// Validate userID
 		if (!userID) {
-			console.error("EmailJS public key is missing. Check VITE_APP_PUBLIC_KEY in .env");
 			toast.error("Configuration error. Please contact support.");
 			setIsSubmitting(false);
 			return;
