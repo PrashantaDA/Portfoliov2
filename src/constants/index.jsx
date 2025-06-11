@@ -196,7 +196,7 @@ const projectDetails = [
 	{
 		id: 3,
 		title: "Oakédex",
-		details: "The ultimate destination for game information and details.",
+		details: "Pokedex web application.",
 		img: Pokedex,
 		tech: ["React + Vite", "SCSS", "Poké API"],
 		category: "Web App",
