@@ -5,7 +5,7 @@ const Footer = () => {
 			<h1 className="text-xl text-gradient ">
 				© {currentYear}.{" "}
 				<a
-					href="https://github/com/prashantada"
+					href="https://github.com/prashantada"
 					className="text-gradient text-gradient-hover transition-all duration-300"
 				>
 					{" "}
