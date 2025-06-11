@@ -48,11 +48,13 @@ const ContactForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// Handle form submission logic (e.g., send data to an API)
 		const serviceID = import.meta.env.VITE_APP_SERVICE_KEY;
 		const templateID = import.meta.env.VITE_APP_TEMPLATE_KEY;
 		const userID = import.meta.env.VITE_APP_PUBLIC_KEY;
 		setIsSubmitting(true);
+
+		// Log environment variables for debugging
+		console.log({ serviceID, templateID, userID });
 
 		// Basic validation
 		if (!formData.name || !formData.email || !formData.message) {
@@ -65,6 +67,14 @@ const ContactForm = () => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		if (!emailRegex.test(formData.email)) {
 			toast.error("Please enter a valid email address");
+			setIsSubmitting(false);
+			return;
+		}
+
+		// Validate userID
+		if (!userID) {
+			console.error("EmailJS public key is missing. Check VITE_APP_PUBLIC_KEY in .env");
+			toast.error("Configuration error. Please contact support.");
 			setIsSubmitting(false);
 			return;
 		}
@@ -85,7 +95,7 @@ const ContactForm = () => {
 			}
 		} catch (error) {
 			console.error("EmailJS Error:", error);
-			toast.error(error.message || "Failed to send message. Please try again.");
+			toast.error(error.text || "Failed to send message. Please try again.");
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -130,7 +140,7 @@ const ContactForm = () => {
 						value={formData.email}
 						onChange={handleChange}
 						className="w-full px-4 py-3 bg-black/50 border border-accent2/20 rounded-lg focus:outline-none focus:border-accent2 text-primary placeholder-primary/40 transition-colors duration-300"
-						placeholder="your@email.com"
+						placeholder="Your email"
 						required
 					/>
 				</div>
@@ -173,7 +183,7 @@ const ContactForm = () => {
 			<button
 				type="submit"
 				disabled={isSubmitting}
-				className="w-full md:w-auto px-8 py-3 bg-accent2/20 hover:bg-accent2/30 text-primary rounded-lg flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
+				className="cursor-pointer w-full md:w-auto px-8 py-3 bg-accent2/20 hover:bg-accent2/30 text-primary rounded-lg flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
 			>
 				{isSubmitting ? (
 					<>
@@ -183,7 +193,7 @@ const ContactForm = () => {
 				) : (
 					<>
 						Send Message
-						<FaPaperPlane className="group-hover:translate-x-1 transition-transform duration-300" />
+						<FaPaperPlane className="group-hover:-translate-x-1 transition-transform duration-300" />
 					</>
 				)}
 			</button>
