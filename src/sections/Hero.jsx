@@ -42,7 +42,10 @@ const Hero = () => {
 	}, []);
 
 	return (
-		<section className="hero">
+		<section
+			id="hero"
+			className="hero"
+		>
 			<div className="hero-layout">
 				<div className="flex flex-col items-center gap-8">
 					<div
