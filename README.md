@@ -1,12 +1,59 @@
-# React + Vite
+# Pras Dixit's Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive portfolio website built with React and GSAP animations. This portfolio showcases my skills, projects, and provides a way to get in touch.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎨 Modern and clean design
+- ⚡ Smooth animations and transitions
+- 📱 Fully responsive layout
+- 🔒 CSRF protection for form submissions
+- 📧 Contact form with EmailJS integration
+- 🎯 Interactive project showcase
+- 🛠️ Skills visualization
+- 🎭 Custom cursor effects
 
-## Expanding the ESLint configuration
+## 🚀 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- GSAP (GreenSock Animation Platform)
+- Tailwind CSS
+- EmailJS
+- React Icons
+- React Hot Toast
+
+## 🛠️ Setup
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/portfolio.git
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Create a `.env` file in the root directory and add your environment variables:
+
+```env
+VITE_APP_SERVICE_KEY=your_emailjs_service_id
+VITE_APP_TEMPLATE_KEY=your_emailjs_template_id
+VITE_APP_PUBLIC_KEY=your_emailjs_public_key
+```
+
+4. Start the development server
+
+```bash
+npm run dev
+```
+
+## 📝 License
+
+MIT License - feel free to use this code for your own portfolio!
+
+## 🤝 Contact
+
+Feel free to reach out if you have any questions or suggestions!
