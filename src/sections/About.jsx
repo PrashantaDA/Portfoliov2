@@ -91,7 +91,7 @@ const About = () => {
 					<h1 className="text-4xl font-semibold">
 						About <span className="text-gradient">Me</span>
 					</h1>
-					<p className="text-xs md:text-sm mt-5">
+					<p className="text-xs md:text-sm mt-5 text-center">
 						Always <span className="text-gradient2 title-span">Learning.</span> Always <span className="text-gradient2 title-span">Growing.</span> Looking for{" "}
 						<span className="text-gradient2 title-span">New Challenges.</span>
 					</p>

@@ -31,7 +31,7 @@ const TechCard = ({ icon, name, level }) => {
 	return (
 		<div
 			ref={cardRef}
-			className="group relative flex flex-col items-center justify-center p-4 bg-darker/30 backdrop-blur-sm rounded-xl border border-accent2/10 hover:border-accent2/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent2/10 hover:-translate-y-1 perspective"
+			className="group relative flex flex-col items-center justify-center text-center p-4 bg-darker/30 backdrop-blur-sm rounded-xl border border-accent2/10 hover:border-accent2/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent2/10 hover:-translate-y-1 perspective"
 		>
 			<div className="text-primary/70 group-hover:text-accent2 transition-all duration-1000 mb-2 transform transform-gpu group-hover:scale-110 group-hover:rotate-[360deg]">
 				{icon}
