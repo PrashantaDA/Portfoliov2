@@ -5,7 +5,7 @@ import { LuLightbulb, LuChartNoAxesCombined } from "react-icons/lu";
 import { SiTypescript, SiTailwindcss, SiVite, SiMongodb, SiKalilinux, SiWireshark, SiMetasploit } from "react-icons/si";
 
 // ProjectImg
-import { Gamexrip, Pokedex, Rexipe, Hotelix } from "../assets/sites/index";
+import { Gamexrip, Pokedex, Rexipe, Hotelix, ModRestro } from "../assets/sites/index";
 
 // NavLinks
 const navLinks = [
@@ -209,9 +209,19 @@ const projectDetails = [
 		details: "The Modern hotel landing page.",
 		img: Hotelix,
 		tech: ["React + Vite", "TailwindCSS"],
-		category: "Web Page",
+		category: "UI/UX",
 		link: "https://hotelix.netlify.app/",
 		github: "https://github.com/PrashantaDA/HotelIX",
+	},
+	{
+		id: 5,
+		title: "Modern Restaurant",
+		details: "The Modern Restaurant landing page.",
+		img: ModRestro,
+		tech: ["React", "CSS"],
+		category: "UI/UX",
+		link: "https://modrestro.netlify.app/",
+		github: "https://github.com/PrashantaDA/ModernRestro",
 	},
 ];
 
