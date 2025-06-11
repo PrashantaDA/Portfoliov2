@@ -96,20 +96,6 @@ const Contact = () => {
 								</a>
 							</div>
 						</div>
-						<div className="flex items-start gap-4 p-6 bg-black/30 rounded-xl border border-accent2/10 hover:border-accent2/50 transition-all duration-300">
-							<div className="p-3 bg-accent2/20 rounded-lg">
-								<FaEnvelope className="text-2xl text-accent2" />
-							</div>
-							<div>
-								<h3 className="text-lg font-semibold text-gradient mb-2">Email</h3>
-								<a
-									href="mailto:apras.dixit@gmail.com"
-									className="text-primary/60"
-								>
-									apras.dixit@gmail.com
-								</a>
-							</div>
-						</div>
 
 						<div className="flex items-start gap-4 p-6 bg-black/30 rounded-xl border border-accent2/10 hover:border-accent2/50 transition-all duration-300">
 							<div className="p-3 bg-accent2/20 rounded-lg">
