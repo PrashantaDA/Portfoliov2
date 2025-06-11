@@ -2,6 +2,7 @@ import { useEffect, useState, Suspense, lazy } from "react";
 import CursorTrail from "./components/CursorTrail";
 import Loader from "./components/Loader";
 import BackToTop from "./components/BackToTop";
+import PreloadHints from "./components/PreloadHints";
 
 // Lazy load sections
 const Navbar = lazy(() => import("./sections/Navbar"));
@@ -34,8 +35,8 @@ const App = () => {
 			setTimeout(() => {
 				setShowMainContent(true);
 				document.body.style.overflow = "auto"; // Re-enable scrolling
-			}, 500); // Slight delay after loader disappears
-		}, 2500); // Match with loader animation duration
+			}, 400); // Slight delay after loader disappears
+		}, 1800); // Match with loader animation duration
 
 		return () => {
 			clearTimeout(timer);
@@ -45,6 +46,7 @@ const App = () => {
 
 	return (
 		<>
+			<PreloadHints />
 			<Toaster
 				position="top-right"
 				toastOptions={{
