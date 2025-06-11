@@ -6,51 +6,53 @@ import SectionDivider from "../components/SectionDivider";
 import DownArrow from "../components/DownArrow";
 import ProjectCard from "../components/ProjectCard";
 import { projectDetails } from "../constants";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
 	const sectionRef = useRef(null);
 	const headingRef = useRef(null);
+	const filterRef = useRef(null);
+	const projectsRef = useRef(null);
 	const [activeFilter, setActiveFilter] = useState("All");
+	const [currentPage, setCurrentPage] = useState(1);
+	const projectsPerPage = 6;
 
-	// Get unique categories
-	const categories = useMemo(() => {
-		const uniqueCategories = new Set(projectDetails.map((project) => project.category));
-		return ["All", ...Array.from(uniqueCategories)];
-	}, []);
-
-	// Filter projects
 	const filteredProjects = useMemo(() => {
-		if (activeFilter === "All") return projectDetails;
-		return projectDetails.filter((project) => project.category === activeFilter);
+		return activeFilter === "All" ? projectDetails : projectDetails.filter((project) => project.category === activeFilter);
 	}, [activeFilter]);
 
+	// Calculate pagination
+	const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+	const startIndex = (currentPage - 1) * projectsPerPage;
+	const endIndex = startIndex + projectsPerPage;
+	const currentProjects = filteredProjects.slice(startIndex, endIndex);
+
 	useGSAP(() => {
-		// Animate the heading
+		// Animate heading
 		gsap.fromTo(
 			headingRef.current,
 			{
 				opacity: 0,
-				y: -50,
+				y: 50,
 			},
 			{
 				opacity: 1,
 				y: 0,
-				duration: 0.8,
+				duration: 1,
 				ease: "power2.out",
 				scrollTrigger: {
-					trigger: sectionRef.current,
-					start: "top center",
+					trigger: headingRef.current,
+					start: "top bottom-=100",
 					toggleActions: "play none none none",
-					once: true,
 				},
 			}
 		);
 
-		// Animate the filter buttons
+		// Animate filter buttons
 		gsap.fromTo(
-			".filter-btn",
+			filterRef.current.children,
 			{
 				opacity: 0,
 				y: 20,
@@ -62,89 +64,137 @@ const Projects = () => {
 				stagger: 0.1,
 				ease: "power2.out",
 				scrollTrigger: {
-					trigger: sectionRef.current,
-					start: "top center",
+					trigger: filterRef.current,
+					start: "top bottom-=50",
 					toggleActions: "play none none none",
-					once: true,
 				},
 			}
 		);
 
-		// Animate the project cards with stagger
+		// Animate project cards
 		gsap.fromTo(
-			".project-card",
+			projectsRef.current?.children,
 			{
 				opacity: 0,
 				y: 50,
-				scale: 0.8,
 			},
 			{
 				opacity: 1,
 				y: 0,
-				scale: 1,
-				duration: 0.5,
+				duration: 0.8,
 				stagger: 0.1,
 				ease: "power2.out",
 				scrollTrigger: {
-					trigger: sectionRef.current,
-					start: "top center",
+					trigger: projectsRef.current,
+					start: "top bottom-=100",
 					toggleActions: "play none none none",
-					once: true,
 				},
 			}
 		);
-	}, [activeFilter]); // Re-run animations when filter changes
+	}, [currentProjects]); // Re-run animation when projects change
+
+	const handleFilterChange = (filter) => {
+		setActiveFilter(filter);
+		setCurrentPage(1); // Reset to first page when filter changes
+	};
+
+	const handlePageChange = (newPage) => {
+		setCurrentPage(newPage);
+		// Scroll to top of projects section
+		sectionRef.current?.scrollIntoView({ behavior: "smooth" });
+	};
 
 	return (
 		<section
 			ref={sectionRef}
 			id="projects"
+			className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-darker"
 		>
-			<div className="container">
-				<div
-					ref={headingRef}
-					className="flex-col-center pb-12"
-				>
-					<h1 className="text-4xl font-semibold">
-						My <span className="text-gradient">Projects</span>
-					</h1>
-					<p className="text-xs md:text-sm mt-5">
-						Some of my <span className="text-gradient2 title-span">Recent</span> work
-					</p>
+			<div className="max-w-7xl mx-auto">
+				{/* Section Header */}
+				<div className="text-center mb-12">
+					<h2
+						ref={headingRef}
+						className="text-4xl font-bold text-gradient mb-4"
+					>
+						My Projects
+					</h2>
+					<p className="text-primary/60 max-w-2xl mx-auto">Explore my latest work and personal projects. Each project is a unique journey of problem-solving and creativity.</p>
 				</div>
 
 				{/* Filter Buttons */}
-				<div className="flex flex-wrap justify-center gap-4 mb-12">
-					{categories.map((category) => (
+				<div
+					ref={filterRef}
+					className="flex flex-wrap justify-center gap-3 mb-12"
+				>
+					{["All", "Web App", "UI/UX"].map((filter) => (
 						<button
-							key={category}
-							className={`filter-btn px-4 py-2 rounded-full text-sm transition-all duration-300 ${
-								activeFilter === category ? "bg-accent2 text-primary shadow-lg shadow-accent2/20" : "bg-black/50 text-primary/60 hover:bg-accent2/20 hover:text-primary"
+							key={filter}
+							onClick={() => handleFilterChange(filter)}
+							className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+								activeFilter === filter ? "bg-accent2 text-darker" : "bg-accent2/10 text-primary/60 hover:bg-accent2/20 hover:text-primary"
 							}`}
-							onClick={() => setActiveFilter(category)}
 						>
-							{category}
+							{filter}
 						</button>
 					))}
 				</div>
 
 				{/* Projects Grid */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-					{filteredProjects.map((project) => (
-						<div
-							key={project.id}
-							className="project-card"
-						>
-							<ProjectCard {...project} />
-						</div>
+				<div
+					ref={projectsRef}
+					className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+				>
+					{currentProjects.map((project) => (
+						<ProjectCard
+							key={project.title}
+							{...project}
+						/>
 					))}
 				</div>
+
+				{/* Pagination */}
+				{totalPages > 1 && (
+					<div className="flex justify-center items-center gap-4 mt-12">
+						<button
+							onClick={() => handlePageChange(currentPage - 1)}
+							disabled={currentPage === 1}
+							className={`p-2 rounded-full transition-all duration-300 ${
+								currentPage === 1 ? "text-primary/30 cursor-not-allowed" : "text-primary hover:text-accent2 hover:bg-accent2/10"
+							}`}
+							aria-label="Previous page"
+						>
+							<FaChevronLeft />
+						</button>
+
+						<div className="flex gap-2">
+							{Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+								<button
+									key={page}
+									onClick={() => handlePageChange(page)}
+									className={`w-8 h-8 rounded-full text-sm font-medium transition-all duration-300 ${
+										currentPage === page ? "bg-accent2 text-darker" : "bg-accent2/10 text-primary/60 hover:bg-accent2/20 hover:text-primary"
+									}`}
+								>
+									{page}
+								</button>
+							))}
+						</div>
+
+						<button
+							onClick={() => handlePageChange(currentPage + 1)}
+							disabled={currentPage === totalPages}
+							className={`p-2 rounded-full transition-all duration-300 ${
+								currentPage === totalPages ? "text-primary/30 cursor-not-allowed" : "text-primary hover:text-accent2 hover:bg-accent2/10"
+							}`}
+							aria-label="Next page"
+						>
+							<FaChevronRight />
+						</button>
+					</div>
+				)}
 			</div>
-			<div className="flex-center">
-				<a href="#contact">
-					<DownArrow />
-				</a>
-			</div>
+
 			<SectionDivider />
 		</section>
 	);
