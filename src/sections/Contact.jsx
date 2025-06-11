@@ -1,12 +1,21 @@
-import React, { useRef } from "react";
+import React, { useRef, Suspense, lazy } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionDivider from "../components/SectionDivider";
-import ContactForm from "../components/ContactForm";
 import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 
+// Lazy load ContactForm
+const ContactForm = lazy(() => import("../components/ContactForm"));
+
 gsap.registerPlugin(ScrollTrigger);
+
+// Loading fallback for ContactForm
+const ContactFormLoader = () => (
+	<div className="w-full h-[600px] bg-black/30 rounded-xl border border-accent2/10 p-6 flex items-center justify-center">
+		<div className="w-12 h-12 border-4 border-accent2 border-t-transparent rounded-full animate-spin"></div>
+	</div>
+);
 
 const Contact = () => {
 	const sectionRef = useRef(null);
@@ -110,7 +119,9 @@ const Contact = () => {
 
 					{/* Contact Form */}
 					<div className="lg:col-span-2">
-						<ContactForm />
+						<Suspense fallback={<ContactFormLoader />}>
+							<ContactForm />
+						</Suspense>
 					</div>
 				</div>
 			</div>
