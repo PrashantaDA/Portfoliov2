@@ -8,7 +8,7 @@ const BackToTop = () => {
 
 	useEffect(() => {
 		const toggleVisibility = () => {
-			if (window.pageYOffset > 300) {
+			if (window.scrollY > 300) {
 				setIsVisible(true);
 			} else {
 				setIsVisible(false);
@@ -29,14 +29,24 @@ const BackToTop = () => {
 				{
 					opacity: 0,
 					y: 20,
+					scale: 0.8,
 				},
 				{
 					opacity: 1,
 					y: 0,
+					scale: 1,
 					duration: 0.3,
-					ease: "power2.out",
+					ease: "back.out(1.7)",
 				}
 			);
+		} else {
+			gsap.to(".back-to-top", {
+				opacity: 0,
+				y: 20,
+				scale: 0.8,
+				duration: 0.2,
+				ease: "power2.in",
+			});
 		}
 	}, [isVisible]);
 
@@ -50,7 +60,7 @@ const BackToTop = () => {
 	return (
 		<button
 			onClick={scrollToTop}
-			className={`back-to-top fixed bottom-8 right-8 p-3 bg-accent2/20 hover:bg-accent2/30 text-primary rounded-full shadow-lg shadow-accent2/20 transition-all duration-300 hover:scale-110 hover:rotate-12 ${
+			className={`back-to-top cursor-pointer fixed bottom-8 right-8 p-4 bg-accent2/20 backdrop-blur-sm hover:bg-accent2/30 text-primary rounded-full shadow-lg shadow-accent2/20 transition-all duration-300 hover:scale-110 hover:rotate-12 border border-accent2/30 ${
 				isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
 			}`}
 			aria-label="Back to top"

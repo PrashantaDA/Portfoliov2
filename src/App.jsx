@@ -1,13 +1,7 @@
 import { Toaster } from "react-hot-toast";
-import { CursorTrail } from "./components/CursorTrail";
-import { Navbar } from "./sections/Navbar";
-import { Hero } from "./sections/Hero";
-import { About } from "./sections/About";
-import { Skills } from "./sections/Skills";
-import { Projects } from "./sections/Projects";
-import { Contact } from "./sections/Contact";
-import { Footer } from "./sections/Footer";
-import { BackToTop } from "./components/BackToTop";
+import CursorTrail from "./components/CursorTrail";
+import BackToTop from "./components/BackToTop";
+import { Navbar, Hero, About, Skills, Projects, Contact, Footer } from "./sections/index";
 
 function App() {
 	return (
