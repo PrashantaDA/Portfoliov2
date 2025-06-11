@@ -16,6 +16,36 @@ body {
 	font-family: "Electrolize", sans-serif;
 }
 
+/* Disable scrolling */
+html.no-scroll,
+body.no-scroll {
+	overflow: hidden !important;
+	height: 100vh; /* Ensure the viewport is locked */
+}
+
+/* ! */
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+	width: 7px;
+}
+::-webkit-scrollbar-track {
+	background: #020202;
+	border-radius: 2px;
+}
+::-webkit-scrollbar-thumb {
+	background: #1e90ff;
+	border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #ff0099;
+}
+
+/* ! */
+
+/* Gradients */
+
 .text-gradient {
 	/* Gradient */
 	background-image: linear-gradient(to bottom right, #070707, #1e90ff, #010101);
@@ -42,6 +72,8 @@ body {
 .text-gradient-hover:hover {
 	background-image: linear-gradient(to top left, #101010, #ff0099, #070707);
 }
+
+/* ! */
 
 /* Moving Nav Line */
 .moving-line {

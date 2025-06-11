@@ -27,20 +27,25 @@ const App = () => {
 	const [showMainContent, setShowMainContent] = useState(false);
 
 	useEffect(() => {
-		// Disable scrolling while loading
-		document.body.style.overflow = "hidden";
+		// Add no-scroll class to body and html
+		document.body.classList.add("no-scroll");
+		document.documentElement.classList.add("no-scroll");
 
 		const timer = setTimeout(() => {
 			setLoading(false);
 			setTimeout(() => {
 				setShowMainContent(true);
-				document.body.style.overflow = "auto"; // Re-enable scrolling
+				// Remove no-scroll class
+				document.body.classList.remove("no-scroll");
+				document.documentElement.classList.remove("no-scroll");
 			}, 400); // Slight delay after loader disappears
 		}, 1800); // Match with loader animation duration
 
 		return () => {
 			clearTimeout(timer);
-			document.body.style.overflow = "auto"; // Cleanup
+			// Cleanup: Remove no-scroll class
+			document.body.classList.remove("no-scroll");
+			document.documentElement.classList.remove("no-scroll");
 		};
 	}, []);
 

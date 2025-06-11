@@ -42,7 +42,7 @@ const Loader = () => {
 	});
 
 	return (
-		<div className="loader fixed inset-0 w-full h-screen flex items-center justify-center bg-gradient-to-br from-black to-gray-900 z-50">
+		<div className="loader fixed inset-0 w-full max-h-screen flex-center bg-gradient-to-br from-black to-gray-900 z-50">
 			<svg
 				id="svg"
 				xmlns="http://www.w3.org/2000/svg"
