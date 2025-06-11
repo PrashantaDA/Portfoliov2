@@ -5,31 +5,54 @@ gsap.registerPlugin(useGSAP);
 
 const Loader = () => {
 	useGSAP(() => {
+		// Animate the SVG paths
 		gsap.fromTo(
-			".loader",
-			{ opacity: 1 },
+			"#svg path",
 			{
-				opacity: 0,
-				transform: "translateY(-100%)",
-				display: "none",
-				duration: 0.5,
-				delay: 1.27,
+				strokeDasharray: "1000",
+				strokeDashoffset: "1000",
+				stroke: "#ffffff",
+				strokeWidth: "2",
+				fill: "transparent",
+			},
+			{
+				strokeDashoffset: 0,
+				duration: 2,
+				ease: "power2.inOut",
+				stagger: 0.1,
 			}
 		);
+
+		// Fade in the fill
+		gsap.to("#svg path", {
+			fill: "#ffffff",
+			duration: 0.5,
+			delay: 1.5,
+			stagger: 0.1,
+		});
+
+		// Fade out the entire loader
+		gsap.to(".loader", {
+			opacity: 0,
+			transform: "translateY(-100%)",
+			display: "none",
+			duration: 0.5,
+			delay: 2.5,
+		});
 	});
 
 	return (
-		<div className="loader w-full h-screen flex items-center justify-center bg-black ">
+		<div className="loader fixed inset-0 w-full h-screen flex items-center justify-center bg-gradient-to-br from-black to-gray-900 z-50">
 			<svg
 				id="svg"
 				xmlns="http://www.w3.org/2000/svg"
 				xmlnsXlink="http://www.w3.org/1999/xlink"
-				width="500"
-				zoomAndPan="magnify"
+				width="300"
+				height="300"
 				viewBox="0 0 375 374.999991"
-				height="500"
 				preserveAspectRatio="xMidYMid meet"
 				version="1.0"
+				className="w-[300px] md:w-[500px]"
 			>
 				<defs>
 					<g />
