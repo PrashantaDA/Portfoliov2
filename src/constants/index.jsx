@@ -209,7 +209,7 @@ const projectDetails = [
 		details: "The Modern hotel landing page.",
 		img: Hotelix,
 		tech: ["React + Vite", "TailwindCSS"],
-		category: "Web App",
+		category: "Web Page",
 		link: "https://hotelix.netlify.app/",
 		github: "https://github.com/PrashantaDA/HotelIX",
 	},
