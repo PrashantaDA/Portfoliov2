@@ -1,14 +1,23 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, Suspense, lazy } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionDivider from "../components/SectionDivider";
 import DownArrow from "../components/DownArrow";
-import ProjectCard from "../components/ProjectCard";
 import { projectDetails } from "../constants";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
+// Lazy load ProjectCard
+const ProjectCard = lazy(() => import("../components/ProjectCard"));
+
 gsap.registerPlugin(ScrollTrigger);
+
+// Loading fallback for ProjectCard
+const ProjectCardLoader = () => (
+	<div className="w-full h-[400px] bg-accent2/10 rounded-2xl p-5 flex items-center justify-center">
+		<div className="w-12 h-12 border-4 border-accent2 border-t-transparent rounded-full animate-spin"></div>
+	</div>
+);
 
 const Projects = () => {
 	const sectionRef = useRef(null);
@@ -145,12 +154,20 @@ const Projects = () => {
 					ref={projectsRef}
 					className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
 				>
-					{currentProjects.map((project) => (
-						<ProjectCard
-							key={project.title}
-							{...project}
-						/>
-					))}
+					<Suspense
+						fallback={Array(projectsPerPage)
+							.fill(0)
+							.map((_, index) => (
+								<ProjectCardLoader key={index} />
+							))}
+					>
+						{currentProjects.map((project) => (
+							<ProjectCard
+								key={project.title}
+								{...project}
+							/>
+						))}
+					</Suspense>
 				</div>
 
 				{/* Pagination */}

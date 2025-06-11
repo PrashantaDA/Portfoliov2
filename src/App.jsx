@@ -1,10 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense, lazy } from "react";
 import CursorTrail from "./components/CursorTrail";
 import Loader from "./components/Loader";
 import BackToTop from "./components/BackToTop";
-import { Navbar, Hero, About, Skills, Projects, Contact, Footer } from "./sections/index";
+
+// Lazy load sections
+const Navbar = lazy(() => import("./sections/Navbar"));
+const Hero = lazy(() => import("./sections/Hero"));
+const About = lazy(() => import("./sections/About"));
+const Skills = lazy(() => import("./sections/Skills"));
+const Projects = lazy(() => import("./sections/Projects"));
+const Contact = lazy(() => import("./sections/Contact"));
+const Footer = lazy(() => import("./sections/Footer"));
 
 import { Toaster } from "react-hot-toast";
+
+// Loading fallback component
+const SectionLoader = () => (
+	<div className="w-full h-screen flex items-center justify-center">
+		<div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+	</div>
+);
 
 const App = () => {
 	const [loading, setLoading] = useState(true);
@@ -60,15 +75,29 @@ const App = () => {
 			<CursorTrail />
 			{loading && <Loader />}
 			<div className={`main-content transition-opacity duration-500 ${showMainContent ? "opacity-100" : "opacity-0"}`}>
-				<Navbar />
-				<main className="relative">
-					<Hero />
-					<About />
-					<Skills />
-					<Projects />
-					<Contact />
-				</main>
-				<Footer />
+				<Suspense fallback={<SectionLoader />}>
+					<Navbar />
+					<main className="relative">
+						<Suspense fallback={<SectionLoader />}>
+							<Hero />
+						</Suspense>
+						<Suspense fallback={<SectionLoader />}>
+							<About />
+						</Suspense>
+						<Suspense fallback={<SectionLoader />}>
+							<Skills />
+						</Suspense>
+						<Suspense fallback={<SectionLoader />}>
+							<Projects />
+						</Suspense>
+						<Suspense fallback={<SectionLoader />}>
+							<Contact />
+						</Suspense>
+					</main>
+					<Suspense fallback={<SectionLoader />}>
+						<Footer />
+					</Suspense>
+				</Suspense>
 				<BackToTop />
 			</div>
 		</>

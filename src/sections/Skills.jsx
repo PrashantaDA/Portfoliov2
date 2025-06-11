@@ -1,13 +1,22 @@
-import React, { useRef } from "react";
+import React, { useRef, Suspense, lazy } from "react";
 import DownArrow from "../components/DownArrow";
 import SectionDivider from "../components/SectionDivider";
-import TechCard from "../components/TechCard";
 import { technicalSkills } from "../constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+// Lazy load TechCard
+const TechCard = lazy(() => import("../components/TechCard"));
+
 gsap.registerPlugin(ScrollTrigger);
+
+// Loading fallback for TechCard
+const TechCardLoader = () => (
+	<div className="w-full aspect-square bg-accent2/10 rounded-xl p-4 flex items-center justify-center">
+		<div className="w-8 h-8 border-4 border-accent2 border-t-transparent rounded-full animate-spin"></div>
+	</div>
+);
 
 const Skills = () => {
 	const sectionRef = useRef(null);
@@ -74,14 +83,27 @@ const Skills = () => {
 					</p>
 				</div>
 				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-					{technicalSkills.map((skill) => (
-						<div
-							key={skill.id}
-							className="tech-card"
-						>
-							<TechCard {...skill} />
-						</div>
-					))}
+					<Suspense
+						fallback={Array(technicalSkills.length)
+							.fill(0)
+							.map((_, index) => (
+								<div
+									key={index}
+									className="tech-card"
+								>
+									<TechCardLoader />
+								</div>
+							))}
+					>
+						{technicalSkills.map((skill) => (
+							<div
+								key={skill.id}
+								className="tech-card"
+							>
+								<TechCard {...skill} />
+							</div>
+						))}
+					</Suspense>
 				</div>
 			</div>
 			<div className="flex-center">
