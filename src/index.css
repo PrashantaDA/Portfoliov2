@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Electrolize:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap");
+@import "tailwindcss";
+
+:root {
+	--gradient: radial-gradient(circle, #e5e5e5 0%, #f3f0ff 100%);
+}
+
+html,
+body {
+	max-width: 100dvw;
+	overflow-x: hidden;
+	background-color: #010101;
+	color: #f3f0ff;
+	scroll-behavior: smooth;
+	scroll-padding-top: 79px;
+	font-family: "Electrolize", sans-serif;
+}
+
+.text-gradient {
+	/* Gradient */
+	background-image: linear-gradient(to bottom right, #070707, #1e90ff, #010101);
+
+	/* Text clipping */
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+
+	transition: all 0.3s ease-in-out;
+}
+.text-gradient2 {
+	/* Gradient */
+	background-image: linear-gradient(to top right, #00ff79, #010101);
+
+	/* Text clipping */
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+
+	transition: all 0.3s ease-in-out;
+}
+
+.text-gradient-hover:hover {
+	background-image: linear-gradient(to top left, #101010, #ff0099, #070707);
+}
+
+/* Moving Nav Line */
+.moving-line {
+	animation: animate 7s linear infinite alternate;
+}
+
+@keyframes animate {
+	0% {
+		left: 0;
+		transform: translate(90%);
+	}
+	100% {
+		left: 100%;
+		transform: translate(-180%);
+	}
+}
+
+/* Hero */
+.hero {
+	position: relative;
+	margin-bottom: 36px;
+	width: 100%;
+	height: 100dvh;
+	background: url("/bg-hero.jpg") no-repeat center center;
+	background-size: cover;
+}
+
+.hero::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.94);
+}
+
+/* Tailwind */
+
+@theme {
+	/* Color Palette */
+	--color-dark: #0f0f0f;
+	--color-darker: #070707;
+	--color-black: #020202;
+	--color-primary: #f3f0ff;
+	--color-accent1: #00ff79;
+	--color-accent2: #1e90ff;
+	--color-hover: #ff0099;
+
+	/* BackG image */
+	--bg-hero: url("/bg-hero.jpg");
+}
+
+@layer utilities {
+	.flex-center {
+		@apply flex justify-center items-center;
+	}
+	.flex-col-center {
+		@apply flex flex-col justify-center items-center;
+	}
+	.container {
+		@apply max-w-[90dvw] mx-auto py-20;
+	}
+	.title-span {
+		@apply uppercase font-semibold;
+	}
+	.rotate-360 {
+		transform: rotate(360deg);
+		transition: transform 0.5s;
+	}
+	.preserve-3d {
+		transform-style: preserve-3d;
+	}
+	.perspective {
+		perspective: 800px;
+	}
+	.flip-y {
+		transform: rotateY(180deg);
+	}
+}
+
+@layer components {
+	/* Nav */
+	.navbar {
+		@apply fixed w-full left-1/2 py-3 px-5 md:px-20 -translate-x-1/2 z-[100] transition-all duration-300 ease-in-out;
+
+		.inner {
+			@apply mx-auto flex items-center justify-between;
+		}
+
+		.logo {
+			@apply text-lg cursor-pointer md:text-xl font-semibold transition-all duration-300 hover:scale-102;
+		}
+
+		nav.desktop {
+			@apply hidden lg:flex items-center;
+
+			ul {
+				@apply flex space-x-12 text-lg;
+
+				li {
+					@apply text-accent2 relative;
+
+					span {
+						@apply transition-colors duration-300;
+					}
+
+					.underline {
+						@apply absolute bottom-0 left-0 w-0 h-0.5 bg-hover transition-all duration-300 group-hover:w-full;
+					}
+				}
+			}
+		}
+		.contact-btn {
+			@apply flex;
+
+			.inner {
+				@apply px-5 py-2 rounded-lg bg-darker group-hover:bg-black group-hover:shadow-hover shadow-xs shadow-accent2 transition-colors duration-300;
+
+				span {
+					@apply transition-colors duration-300;
+				}
+			}
+		}
+	}
+	/* Nav End */
+
+	/* Hero */
+	.hero-layout {
+		@apply relative z-[90] flex flex-col items-center justify-between max-w-[90dvw] md:max-w-[70dvw] h-full mx-auto pt-32;
+	}
+
+	/* Hero End */
+
+	/* Socials */
+
+	.social-icons {
+		@apply rounded-full p-3 bg-black text-primary cursor-pointer 
+		shadow-2xl shadow-accent2 hover:shadow-hover hover:text-accent1 scale-105 transition-all duration-500;
+	}
+
+	/* Footer*/
+	.footer {
+		@apply md:mt-20 mt-10 text-accent2 p-4 md:px-20 xl:px-20 flex items-center justify-center;
+
+		.underline {
+			@apply absolute -bottom-1 left-0 w-0 h-0.5 bg-hover transition-all duration-300 group-hover:w-full;
+		}
+	}
+	/* Footer End */
+}
