@@ -120,6 +120,7 @@ const ContactForm = () => {
 						className="w-full px-4 py-3 bg-black/50 border border-accent2/20 rounded-lg focus:outline-none focus:border-accent2 text-primary placeholder-primary/40 transition-colors duration-300"
 						placeholder="Your name"
 						required
+						autoComplete="name"
 					/>
 				</div>
 				<div className="form-group">
@@ -138,6 +139,7 @@ const ContactForm = () => {
 						className="w-full px-4 py-3 bg-black/50 border border-accent2/20 rounded-lg focus:outline-none focus:border-accent2 text-primary placeholder-primary/40 transition-colors duration-300"
 						placeholder="Your email"
 						required
+						autoComplete="email"
 					/>
 				</div>
 			</div>
@@ -156,6 +158,7 @@ const ContactForm = () => {
 					onChange={handleChange}
 					className="w-full px-4 py-3 bg-black/50 border border-accent2/20 rounded-lg focus:outline-none focus:border-accent2 text-primary placeholder-primary/40 transition-colors duration-300"
 					placeholder="What's this about?"
+					autoComplete="off"
 				/>
 			</div>
 			<div className="form-group">
@@ -174,6 +177,7 @@ const ContactForm = () => {
 					className="w-full px-4 py-3 bg-black/50 border border-accent2/20 rounded-lg focus:outline-none focus:border-accent2 text-primary placeholder-primary/40 transition-colors duration-300 resize-none"
 					placeholder="Your message here..."
 					required
+					autoComplete="off"
 				/>
 			</div>
 			<button
