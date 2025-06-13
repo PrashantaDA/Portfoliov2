@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { FaGithub, FaExternalLinkAlt, FaInfoCircle } from "react-icons/fa";
 
 const ProjectCard = ({ title, details, img, tech, category, link, github }) => {
 	const cardRef = useRef(null);
 	const [isHovered, setIsHovered] = useState(false);
+	const [showDetails, setShowDetails] = useState(false);
 
 	useGSAP(() => {
 		gsap.fromTo(
@@ -47,6 +48,10 @@ const ProjectCard = ({ title, details, img, tech, category, link, github }) => {
 		});
 	};
 
+	const toggleDetails = () => {
+		setShowDetails(!showDetails);
+	};
+
 	return (
 		<div
 			ref={cardRef}
@@ -63,8 +68,8 @@ const ProjectCard = ({ title, details, img, tech, category, link, github }) => {
 				/>
 				<div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-				{/* Links Overlay */}
-				<div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+				{/* Links Overlay - Hidden on mobile */}
+				<div className="absolute inset-0 hidden md:flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
 					<a
 						href={github}
 						target="_blank"
@@ -108,6 +113,43 @@ const ProjectCard = ({ title, details, img, tech, category, link, github }) => {
 						</span>
 					))}
 				</div>
+
+				{/* Mobile Action Button */}
+				<div className="mt-4 md:hidden">
+					<button
+						onClick={toggleDetails}
+						className="w-full py-2 px-4 bg-accent2/20 hover:bg-accent2/30 rounded-lg text-primary flex items-center justify-center gap-2 transition-colors duration-300"
+					>
+						<FaInfoCircle className="text-accent2" />
+						<span>{showDetails ? "Hide Details" : "Show Details"}</span>
+					</button>
+				</div>
+
+				{/* Mobile Details Panel */}
+				{showDetails && (
+					<div className="mt-4 md:hidden space-y-4">
+						<div className="flex justify-center gap-4">
+							<a
+								href={github}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="p-3 bg-accent2/20 hover:bg-accent2/40 rounded-full transition-all duration-300"
+								aria-label="View GitHub repository"
+							>
+								<FaGithub className="text-2xl text-primary" />
+							</a>
+							<a
+								href={link}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="p-3 bg-accent2/20 hover:bg-accent2/40 rounded-full transition-all duration-300"
+								aria-label="View live project"
+							>
+								<FaExternalLinkAlt className="text-2xl text-primary" />
+							</a>
+						</div>
+					</div>
+				)}
 			</div>
 
 			{/* Hover Gradient Line */}
