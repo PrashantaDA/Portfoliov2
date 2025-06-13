@@ -52,13 +52,13 @@ const Hero = () => {
 						ref={textRef}
 						className="flex flex-col items-center justify-center text-center"
 					>
-						<h1 className="text-4xl md:text-5xl font-bold mb-2">
+						<h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2">
 							Hi, I'm <span className="text-gradient">Prashanta D Acharya</span>
 						</h1>
-						<h2 className="text-xl md:text-2xl text-primary/80 mb-4">
+						<h2 className="text-md md:text-xl lg:text-2xl text-primary/80 mb-4">
 							Frontend <span className="text-gradient2 title-span">Developer</span> & Security <span className="text-gradient2 title-span">Enthusiast</span>
 						</h2>
-						<p className="text-primary/60 max-w-lg mb-6">Crafting secure and efficient web solutions with modern technologies</p>
+						<p className="hidden md:flex text-primary/60 max-w-lg mb-6">Crafting secure and efficient web solutions with modern technologies</p>
 					</div>
 					<div className="w-full max-w-2xl">
 						<CodePlaylist />
