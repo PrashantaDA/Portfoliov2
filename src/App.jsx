@@ -2,7 +2,6 @@ import { useEffect, useState, Suspense, lazy } from "react";
 import CursorTrail from "./components/CursorTrail";
 import Loader from "./components/Loader";
 import BackToTop from "./components/BackToTop";
-import PreloadHints from "./components/PreloadHints";
 
 // Lazy load sections
 const Navbar = lazy(() => import("./sections/Navbar"));
@@ -51,7 +50,6 @@ const App = () => {
 
 	return (
 		<>
-			<PreloadHints />
 			<Toaster
 				position="top-right"
 				toastOptions={{
