@@ -2,6 +2,8 @@
 
 A modern, responsive portfolio website built with React and GSAP animations. This portfolio showcases my skills, projects, and provides a way to get in touch.
 
+## View at: https://prashantada.com.np/
+
 ## ✨ Features
 
 - 🎨 Modern and clean design
